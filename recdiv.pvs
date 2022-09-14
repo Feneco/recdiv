@@ -1,0 +1,38 @@
+recdiv: THEORY
+BEGIN
+
+m, n, q, r: VAR nat
+
+recdiv(m, n): RECURSIVE nat =
+    IF (m - n) >= 0 THEN
+        1 + recdiv(m - n, n)
+    ELSE
+        0
+    ENDIF
+MEASURE m - n
+
+
+% @QED recdiv_identity proved by wagner on Tue, 13 Sep 2022 04:13:48 GMT
+recdiv_identity: COROLLARY
+    FORALL(m) :
+        recdiv(m, 1) = m
+
+% @QED recdiv_zero_property proved by wagner on Tue, 13 Sep 2022 04:14:50 GMT
+recdiv_zero_property: COROLLARY
+    FORALL(n: above(0)) : 
+        recdiv(0, n) = 0
+
+% @QED recdiv_reflexivity_is_one proved by wagner on Tue, 13 Sep 2022 05:41:57 GMT
+recdiv_reflexivity_is_one: COROLLARY
+    FORALL(m: above(0)) : 
+        recdiv(m, m) = 1
+
+% @QED recdiv_only_rem proved by wagner on Tue, 13 Sep 2022 04:36:10 GMT
+recdiv_only_rem: COROLLARY
+    FORALL(m, (n: above(m))) : 
+        recdiv(m, n) = 0
+
+recdiv_lessthan: LEMMA
+    FORALL(m, n: above(0)) : recdiv(m, n) <= m
+
+END recdiv
